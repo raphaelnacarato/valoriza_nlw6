@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata';
 
@@ -9,6 +10,7 @@ import './database';
 const app = express();
 const port = 3000;
 
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(router);
 

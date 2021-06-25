@@ -8,12 +8,13 @@ class CreateComplimentController {
    async handle(req: Request, res: Response) {
       const createComplimentService = new CreateComplimentService();
 
-      const { message, tag_id, user_sender, user_receiver } = req.body;
+      const { message, tag_id, user_receiver } = req.body;
+      const { user_id } = req;
 
       const compliment = await createComplimentService.execute({
          message,
          tag_id,
-         user_sender,
+         user_sender: user_id,
          user_receiver
       });
 

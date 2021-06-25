@@ -1,9 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
+import { getCustomRepository } from 'typeorm';
 
-export function ensureAdmin(req: Request, res: Response, next: NextFunction) {
-   const admin = true;
+import { UsersRepositories } from '../repositories/UsersRepositories';
 
-   if (admin) {
+export async function ensureAdmin(req: Request, res: Response, next: NextFunction) {
+   const usersRepositories = getCustomRepository(UsersRepositories);
+
+   const { user_id } = req;
+
+   const user = await usersRepositories.findOne(user_id);
+
+   if (user.admin) {
       return next();
    }
 
